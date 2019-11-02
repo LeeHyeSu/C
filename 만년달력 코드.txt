@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+#define TRUE 1
+#define FALSE 0
+
+int days_of_month[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+
+int is_leap_year(int year)
+{
+	if ( year % 400 == 0 )
+		return TRUE;
+	if ( year % 100 == 0 )
+		return FALSE;
+	if ( year % 4 == 0 )
+		return TRUE;
+	return FALSE;
+}
+
+int total_days_year(int year)
+{
+	int i;
+	int ret =0;
+	for( i = 1 ; i < year ; i++ )
+	{
+		if ( is_leap_year( i ) == TRUE )
+			ret+=366;
+		else
+			ret+=365;
+	}
+	return ret;
+}
+
+int total_days_month(int year,int month)
+{
+	int i;
+	int ret =0;
+	for( i = 1 ; i < month ; i++ )
+	{
+		ret+=days_of_month[i];
+		if ( is_leap_year( year ) == TRUE && i == 2 )
+			ret++;
+			
+	}
+	return ret;
+}
+
+int get_first_day(int year, int month)
+{
+	int i;
+	int total_days =0;
+	total_days = total_days + total_days_year(year);
+	total_days = total_days + total_days_month(year,month);
+	total_days++;
+
+	return (total_days%7);
+}
+
+
+int main()
+{
+	int year;
+	int month;
+	int i = 0 ;
+	int first_day = 0 ;
+
+	printf("연도를 입력하시오. :" );
+	scanf("%d", &year );
+
+	printf("달을 입력하시오. :");
+	scanf("%d", &month );
+
+	printf("%d\n", get_first_day(year,month) );
+
+	return 0;
+}

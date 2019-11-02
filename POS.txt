@@ -1,0 +1,75 @@
+//POS
+#include<stdio.h>
+
+void MENU()
+{
+	printf("1. 콜라(1500)\t2. 사이다(2100)\t3. 햄버거(5110)\n");
+}
+
+void BUY(int *item, int *quantity)
+{
+	scanf("%d %d", &item, &quantity);
+}
+
+int TOTAL(int *item, int *quantity)
+{
+	int price = 0;
+
+	if(*item == 1)
+		price = 1500 * *quantity;
+	else if(*item == 2)
+		price = 2100 * *quantity;
+	else if(*item == 3)
+		price = 5110 * *quantity;
+	
+	return price;
+}
+
+void POWER_OF_CHANGE(int money, int price)
+{
+	int change = money - price;
+
+	if(change > 1000)
+	{
+		printf("- 1000원: %d개", change / 1000);
+		change = change - 1000 * (change / 1000);
+	}
+	if(change > 500)
+	{
+		printf("- 500원: %d개", change / 500);
+		change = change - 500 * (change / 500);
+	}
+	if(change > 100)
+	{
+		printf("- 100원: %d개", change / 100);
+		change = change - 100 * (change / 100);
+	}
+	if(change > 50)
+	{
+		printf("- 50원: %d개", change / 50);
+		change = change - 50 * (change / 50);
+	}
+	if(change > 10)
+	{
+		printf("- 10원: %d개", change / 10);
+		change - change - 10 * (change / 10);
+	}
+}
+
+int main()
+{
+	int item = 0;
+	int quantity = 0;
+	int price;
+	int money;
+
+	MENU();
+	BUY(&item, &quantity);
+	price = TOTAL(&item, &quantity);
+
+	printf("%d원입니다\n", price); 
+	scanf("%d", &money);
+
+	POWER_OF_CHANGE(money, price);
+}
+	
